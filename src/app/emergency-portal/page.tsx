@@ -307,7 +307,7 @@ export default function EmergencyPortal() {
                             <div className={`p-2 rounded-lg ${lastCheckIn?.batteryLevel && lastCheckIn.batteryLevel <= 20 ? 'bg-red-500/10' : 'bg-green-500/10'}`}>
                                 <Activity className={`${lastCheckIn?.batteryLevel && lastCheckIn.batteryLevel <= 20 ? 'text-red-500 animate-pulse' : 'text-green-500'} w-6 h-6`} />
                             </div>
-                            {(lastCheckIn)?.isCharging && (
+                            {(lastCheckIn as any)?.isCharging && (
                                 <span className="text-xs font-bold text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded flex items-center gap-1">
                                     <Zap className="w-3 h-3 fill-yellow-400" /> CHARGING
                                 </span>
