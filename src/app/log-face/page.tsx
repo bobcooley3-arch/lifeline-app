@@ -24,7 +24,7 @@ export default function SarahPage() {
 
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', backgroundColor: '#020617', color: 'white', fontFamily: 'sans-serif' }}>
-      <button onClick={send} style={{ padding: '50px', fontSize: '2rem', borderRadius: '30px', backgroundColor: '#2563eb', color: 'white', border: 'none', fontWeight: 'bold' }}>
+      <button onClick={send} style={{ padding: '40px 60px', fontSize: '1.8rem', borderRadius: '25px', backgroundColor: '#2563eb', color: 'white', border: 'none', fontWeight: 'bold', cursor: 'pointer' }}>
         {status}
       </button>
       <p style={{ marginTop: '20px', color: '#94a3b8' }}>Tap to send location to Dad</p>
