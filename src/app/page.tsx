@@ -9,12 +9,12 @@ export default function AdminPage() {
       const res = await fetch('/api/pulse');
       const json = await res.json();
       if (!json.error) setData(json);
-    } catch (e) { console.error("Update failed"); }
+    } catch (e) { console.log("Updating..."); }
   };
 
   useEffect(() => {
     checkPulse();
-    const interval = setInterval(checkPulse, 10000);
+    const interval = setInterval(checkPulse, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -28,25 +28,24 @@ export default function AdminPage() {
   };
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#020617', color: 'white', fontFamily: 'sans-serif' }}>
-      <div style={{ padding: '15px', borderBottom: '1px solid #1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2 style={{ margin: 0 }}>Lifeline Admin</h2>
-        <button onClick={runTest} style={{ backgroundColor: '#dc2626', color: 'white', padding: '8px 16px', borderRadius: '6px', border: 'none', fontWeight: 'bold' }}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#020617', color: 'white', fontFamily: 'sans-serif', padding: '20px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1e293b', paddingBottom: '20px' }}>
+        <h1 style={{ margin: 0 }}>Lifeline Admin</h1>
+        <button onClick={runTest} style={{ backgroundColor: '#dc2626', color: 'white', padding: '10px 20px', borderRadius: '8px', border: 'none', fontWeight: 'bold' }}>
           Test New York
         </button>
       </div>
       
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>
         {data ? (
-          <div>
-            <div style={{ fontSize: '1.2rem', marginBottom: '20px' }}>
-              📍 Current Location: <br/>
-              <span style={{ color: '#60a5fa', fontWeight: 'bold' }}>{data.lat.toFixed(4)}, {data.lng.toFixed(4)}</span>
-            </div>
-            <p style={{ color: '#94a3b8' }}>Updated: {new Date().toLocaleTimeString()}</p>
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ color: '#60a5fa', fontSize: '3rem', fontWeight: 'bold', marginBottom: '10px' }}>📍 ACTIVE</div>
+            <div>Latitude: {data.lat.toFixed(4)}</div>
+            <div>Longitude: {data.lng.toFixed(4)}</div>
+            <p style={{ color: '#94a3b8', fontSize: '1rem' }}>Last Signal: {data.time || 'Just now'}</p>
           </div>
         ) : (
-          <div style={{ color: '#475569' }}>Waiting for Signal...</div>
+          <div style={{ color: '#475569' }}>Waiting for Sarah's first signal...</div>
         )}
       </div>
     </div>
