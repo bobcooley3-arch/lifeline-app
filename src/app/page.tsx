@@ -1,18 +1,15 @@
 'use client';
 import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-
-const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
-const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
-const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
 
 export default function AdminPage() {
   const [data, setData] = useState<any>(null);
 
   const checkPulse = async () => {
-    const res = await fetch('/api/pulse');
-    const json = await res.json();
-    if (!json.error) setData(json);
+    try {
+      const res = await fetch('/api/pulse');
+      const json = await res.json();
+      if (!json.error) setData(json);
+    } catch (e) { console.error("Update failed"); }
   };
 
   useEffect(() => {
@@ -24,26 +21,32 @@ export default function AdminPage() {
   const runTest = async () => {
     await fetch('/api/pulse', {
       method: 'POST',
-      body: JSON.stringify({ lat: 40.7128, lng: -74.0060, batt: 99 })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lat: 40.7128, lng: -74.0060 })
     });
     checkPulse();
   };
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#020617' }}>
-      <div style={{ padding: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'white' }}>
-        <span>Admin Dashboard (v6.1)</span>
-        <button onClick={runTest} style={{ backgroundColor: '#dc2626', color: 'white', padding: '5px 10px', borderRadius: '4px', border: 'none' }}>
-          Run NY Test
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#020617', color: 'white', fontFamily: 'sans-serif' }}>
+      <div style={{ padding: '15px', borderBottom: '1px solid #1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h2 style={{ margin: 0 }}>Lifeline Admin</h2>
+        <button onClick={runTest} style={{ backgroundColor: '#dc2626', color: 'white', padding: '8px 16px', borderRadius: '6px', border: 'none', fontWeight: 'bold' }}>
+          Test New York
         </button>
       </div>
       
-      <div style={{ flex: 1 }}>
-        {typeof window !== 'undefined' && (
-          <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: '100%', width: '100%' }}>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {data && <Marker position={[data.lat, data.lng]} />}
-          </MapContainer>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+        {data ? (
+          <div>
+            <div style={{ fontSize: '1.2rem', marginBottom: '20px' }}>
+              📍 Current Location: <br/>
+              <span style={{ color: '#60a5fa', fontWeight: 'bold' }}>{data.lat.toFixed(4)}, {data.lng.toFixed(4)}</span>
+            </div>
+            <p style={{ color: '#94a3b8' }}>Updated: {new Date().toLocaleTimeString()}</p>
+          </div>
+        ) : (
+          <div style={{ color: '#475569' }}>Waiting for Signal...</div>
         )}
       </div>
     </div>
