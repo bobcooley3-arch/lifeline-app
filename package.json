@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@upstash/redis": "^1.28.4",
-    "@vercel/kv": "^3.0.0",
     "framer-motion": "^11.0.8",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.344.0",
