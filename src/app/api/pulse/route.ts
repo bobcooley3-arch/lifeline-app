@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Redis } from '@upstash/redis';
 
-// This connects directly to your "redis-yellow-zebra"
+// This uses the exact name 'REDIS_URL' found in your settings
 const redis = new Redis({
   url: process.env.REDIS_URL || '',
   token: process.env.REDIS_TOKEN || '',
@@ -20,7 +20,6 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    // This saves the location signal
     await redis.set('lifeline-state', {
       ...body,
       lastCheckIn: Date.now()
