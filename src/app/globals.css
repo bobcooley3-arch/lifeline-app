@@ -4,4 +4,8 @@ body {
   background: #020617;
   color: white;
   font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
