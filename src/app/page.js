@@ -10,21 +10,11 @@ export default function Page() {
       color: 'white',
       backgroundColor: '#0f172a'
     }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>LIFELINE CORE</h1>
-      <p style={{ color: '#94a3b8', marginBottom: '2rem' }}>Forensic Safety Engine v1.0</p>
-      
+      <h1 style={{ fontSize: '2rem' }}>LIFELINE CORE</h1>
+      <p style={{ color: '#94a3b8' }}>Forensic Safety Engine v1.0</p>
       <button 
-        style={{
-          padding: '1rem 2rem',
-          fontSize: '1.2rem',
-          backgroundColor: '#ef4444',
-          color: 'white',
-          border: 'none',
-          borderRadius: '0.5rem',
-          cursor: 'pointer',
-          fontWeight: 'bold'
-        }}
-        onClick={() => alert('Pulse Engine Initialized')}
+        style={{ padding: '1rem 2rem', backgroundColor: '#ef4444', color: 'white', border: 'none', borderRadius: '0.5rem', cursor: 'pointer' }}
+        onClick={() => alert('Pulse Active')}
       >
         TEST NEW YORK
       </button>
